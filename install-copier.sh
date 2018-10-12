@@ -59,9 +59,9 @@ chmod a+x /opt/zendrivescripts/movesource
 
 final-process () {
 
-# this runs when everything is finished, and shuts down the box ready for the automator to kick in
-sed -i -e '$i \/opt/zendrivescripts/movesource &\n' /etc/rc.local
-# shutdown -h now
+# this runs when everything is finished, and leaves the box waiting for the client to upload the specific files
+sed -i -e '$i \/opt/zendrivescripts/movesource /root/collectionofremotes &\n' /etc/rc.local
+
 }
 #
 # This is where the "stuff" happens
