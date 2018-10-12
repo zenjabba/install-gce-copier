@@ -8,6 +8,8 @@ apt upgrade && apt update
 
 install-package () {
 
+# test update
+
 apt install $1 -y
 
 }
