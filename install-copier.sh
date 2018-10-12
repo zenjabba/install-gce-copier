@@ -6,7 +6,7 @@ apt update -y  && apt upgrade -y
 
 }
 
-install-package () {
+install-packages () {
 
 # test update
 
@@ -44,13 +44,36 @@ cp rclone /usr/bin/rclone.new
 
 config-rclone () {
 
-echo hello
+mkdir -p /root/.config/rclone/
+# rclone.conf needs to be pushed from the users desktop using "gcloud compute scp $RCLONE_CONFIG_FILE $INSTANCE_NAME:/root/.config/rclone/rclone.conf --zone=$ZONE"
+# this will be part of the local script. 
 
 }
 
+general-process () {
+
+cd /opt
+git clone https://github.com/zenjabba/zendrivescripts
+chmod a+x /opt/scripts/rocketpush.sh
+chmod a+x /opt/scripts/movesource
+
+}
+
+final-process () {
+
+# this runs when everything is finished, and shuts down the box ready for the automator to kick in
+sed -i -e '$i \"/opt/scripts/movesource &"\n' /etc/rc.local
+# shutdown -h now
+}
 #
 # This is where the "stuff" happens
 
 update-upgrade
-install-package "unzip"
+install-packages "unzip"
 install-rclone
+config-rclone
+general-process
+
+final-process
+
+
