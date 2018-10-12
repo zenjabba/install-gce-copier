@@ -2,7 +2,7 @@
 
 update-upgrade () {
 
-apt upgrade && apt update 
+apt update -y  && apt upgrade -y
 
 }
 
@@ -13,7 +13,7 @@ install-package () {
 apt install $1 -y
 
 }
- 
+
 
 
 install-rclone () {
@@ -22,12 +22,14 @@ install-rclone () {
 # install rclone
 #
 
-local DOWNLOAD_LINK="https://beta.rclone.org/rclone-beta-latest-amd64-linux.zip"
-local RCLONE_ZIP="rclone-beta-latest-amd64-linux.zip"
+local DOWNLOAD_LINK="https://beta.rclone.org/rclone-beta-latest-linux-amd64.zip"
+local RCLONE_ZIP="rclone-beta-latest-linux-amd64.zip"
 local UNZIP_DIR="/tmp/rclone-temp"
 
 curl -O $DOWNLOAD_LINK
-unzip -a $RCLONE_ZIP -d $UNZIP_DIR
+mkdir -p $UNZIP_DIR
+
+/usr/bin/unzip -a $RCLONE_ZIP -d $UNZIP_DIR
 cd $UNZIP_DIR/*
 cp rclone /usr/bin/rclone.new
     chmod 755 /usr/bin/rclone.new
@@ -42,6 +44,7 @@ cp rclone /usr/bin/rclone.new
 
 config-rclone () {
 
+echo hello
 }
 
 #
@@ -50,4 +53,3 @@ config-rclone () {
 update-upgrade
 install-package "unzip"
 install-rclone
-
