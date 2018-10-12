@@ -14,8 +14,6 @@ apt install $1 -y
 
 }
 
-
-
 install-rclone () {
 
 #
@@ -54,15 +52,15 @@ general-process () {
 
 cd /opt
 git clone https://github.com/zenjabba/zendrivescripts
-chmod a+x /opt/scripts/rocketpush.sh
-chmod a+x /opt/scripts/movesource
+chmod a+x /opt/zendrivescripts/rocketpush.sh
+chmod a+x /opt/zendrivescripts/movesource
 
 }
 
 final-process () {
 
 # this runs when everything is finished, and shuts down the box ready for the automator to kick in
-sed -i -e '$i \"/opt/scripts/movesource &"\n' /etc/rc.local
+sed -i -e '$i \/opt/zendrivescripts/movesource &\n' /etc/rc.local
 # shutdown -h now
 }
 #
