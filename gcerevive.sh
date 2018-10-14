@@ -34,7 +34,7 @@ if [ $STATUS = "TERMINATED" ]; then
 fi
 }
 
-check_running
+# check_running
 check_status
 
 exit
